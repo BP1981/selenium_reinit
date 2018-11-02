@@ -19,9 +19,19 @@ public class TestLogin {
 
 
     @Test
-    public void succeeded(){
+    public void login_failing(){
         driver.get("http://the-internet.herokuapp.com/login");
         driver.findElement(By.id("username")).sendKeys("Bert Peters");
+        driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
+        driver.findElement(By.cssSelector("button")).click();
+        assertTrue("success message not present",driver.findElement(By.cssSelector(".flash.error")).isDisplayed());
+
+    }
+
+    @Test
+    public void login_success(){
+        driver.get("http://the-internet.herokuapp.com/login");
+        driver.findElement(By.id("username")).sendKeys("tomsmith");
         driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
         driver.findElement(By.cssSelector("button")).click();
         assertTrue("success message not present",driver.findElement(By.cssSelector(".flash.success")).isDisplayed());
@@ -29,9 +39,10 @@ public class TestLogin {
     }
 
 
-
     @After
-    public void tearDown(){
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(3000);
         driver.quit();
+       // driver.close();
     }
 }

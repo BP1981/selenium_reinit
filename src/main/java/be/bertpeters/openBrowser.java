@@ -11,6 +11,7 @@ public class openBrowser {
         String url;
 
 
+    //@Before
         public void setUp(){
             WebDriver browser = new ChromeDriver();
         }
